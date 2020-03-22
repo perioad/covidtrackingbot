@@ -126,3 +126,12 @@ function fetchAllCountries(chatId) {
 }
 
 bot.start();
+
+const oneSec = 1000;
+const oneMin = oneSec * 60;
+const oneHour = oneMin * 60;
+
+setInterval(
+  () => axios.get('https://covidtrackingbot.herokuapp.com/'),
+  oneHour
+);
