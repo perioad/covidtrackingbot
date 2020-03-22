@@ -25,6 +25,7 @@ bot.on(["/start", "/help"], function(msg) {
 });
 
 bot.on("ask.situation", msg => {
+  if (msg.text === '/start' || msg.text === '/help') return;
   const chatId = msg.from.id;
   const country = msg.text.trim();
   const replyMarkup = bot.keyboard([["Yes"], ["No"]], { resize: true });
@@ -55,7 +56,7 @@ Do you want to get information about another country?`,
     return;
   }
 
-  if (!countries.includes(country.toLowerCase())) {
+  if (!countries.includes(country.toLowerCase()) ) {
     bot.sendMessage(
       chatId,
       `Ooops, something went wrong 🙁 Is '${country}' correct country name? It's also possible that I don't have '${country}' in my database. Try to send me another country name.`,
