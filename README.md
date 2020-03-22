@@ -1,2 +1,2 @@
 # Coronavirus 👑🔍 Tracking
-## Telegram bot @covidtrackingbot
+## Telegram bot https://t.me/covidtrackingbot
