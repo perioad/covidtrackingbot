@@ -10,7 +10,12 @@ const bot = new TeleBot({
 const covid_api = "https://coronavirus-19-api.herokuapp.com";
 let countries = [];
 
+let startsFromStartDate = 0;
+let asksFromStartDate = 0;
+const dateOfStart = new Date().toLocaleString();
+
 bot.on(["/start", "/help"], function(msg) {
+  startsFromStartDate += 1;
   const chatId = msg.from.id;
 
   const replyMarkup = bot.keyboard([["Global"]], { resize: true });
@@ -25,6 +30,7 @@ bot.on(["/start", "/help"], function(msg) {
 });
 
 bot.on("ask.situation", msg => {
+  asksFromStartDate += 1;
   if (msg.text === '/start' || msg.text === '/help') return;
   const chatId = msg.from.id;
   const country = msg.text.trim();
@@ -125,13 +131,12 @@ function fetchAllCountries(chatId) {
     });
 }
 
+bot.on("/89214395787", msg => {
+  const chatId = msg.from.id;
+  bot.sendMessage(
+    chatId,
+    `Starting from ${dateOfStart} bot was started ${startsFromStartDate} and asked ${asksFromStartDate} times`
+  );
+})
+
 bot.start();
-
-const oneSec = 1000;
-const oneMin = oneSec * 60;
-const oneHour = oneMin * 60;
-
-setInterval(
-  () => axios.get('https://covidtrackingbot.herokuapp.com/'),
-  oneHour
-);
